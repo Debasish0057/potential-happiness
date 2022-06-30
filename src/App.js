@@ -10,6 +10,7 @@ import { Navbar, Footer, Sidebar } from './components';
 
 import './App.css';
 import { useStateContext } from './contexts/ContextProvider';
+import Monitor from './pages/Monitor';
 
 function App() {
   const { activeMenu, currentColor, setThemeSettings } = useStateContext();
@@ -52,7 +53,7 @@ function App() {
               <Routes>
                 {/* Dashboard */}
                 <Route path="/" element={<Employees />} />
-                {/* <Route path="/ecommerce" element={<Ecommerce />} /> */}
+                <Route path="/monitor" element={<Monitor />} />
 
                 {/* Pages */}
                 <Route path="/employees" element={<Employees />} />

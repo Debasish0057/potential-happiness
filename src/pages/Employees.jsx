@@ -648,7 +648,7 @@ const Employees = () => {
   ];
 
   return (
-    <div className="m-2 md:m-5 p-2 md:p-5 bg-white rounded-3xl">
+    <div className="m-2 md:m-5 p-4 md:p-5 bg-white rounded-3xl">
       <Header category="Page" title="Employees" />
       <GridComponent
         dataSource={employeesData}

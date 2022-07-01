@@ -11,6 +11,7 @@ import { Navbar, Footer, Sidebar } from './components';
 import './App.css';
 import { useStateContext } from './contexts/ContextProvider';
 import Monitor from './pages/Monitor';
+import PatientForm from './pages/PatientForm';
 
 function App() {
   const { activeMenu, currentColor, setThemeSettings } = useStateContext();
@@ -53,7 +54,8 @@ function App() {
               <Routes>
                 {/* Dashboard */}
                 <Route path="/" element={<Employees />} />
-                <Route path="/monitor" element={<Monitor />} />
+                
+                <Route path="/patientform" element={<PatientForm />} />
 
                 {/* Pages */}
                 <Route path="/employees" element={<Employees />} />

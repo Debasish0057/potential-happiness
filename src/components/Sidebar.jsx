@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import { SiShopify } from "react-icons/si";
+import { SiWorldhealthorganization } from "react-icons/si";
 import { MdOutlineCancel } from "react-icons/md";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 import { useStateContext } from "../contexts/ContextProvider";
@@ -13,7 +13,7 @@ const Sidebar = () => {
       title: "Dashboard",
       links: [
         {
-          name: "monitor",
+          name: "patientform",
           icon: <FiShoppingBag />,
         },
       ],
@@ -53,7 +53,7 @@ const Sidebar = () => {
               onClick={handleCloseSideBar}
               className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight dark:text-white text-slate-900"
             >
-              <SiShopify /> <span> Dashboard </span>
+              <SiWorldhealthorganization /> <span> EMR </span>
             </Link>
             <TooltipComponent content="Menu" position="BottomCenter">
               <button

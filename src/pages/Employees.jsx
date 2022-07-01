@@ -30,12 +30,12 @@ const Employees = () => {
     },
     {
       EmployeeID: 2,
-      Name: "Nasimiyu Danai",
-      Title: "Marketing Head",
+      Name: "Pooniashi Chian",
+      Title: "Medical Officer",
       HireDate: "01/02/2021",
-      Country: "USA",
+      Country: "India",
       ReportsTo: "Carson",
-      EmployeeImage: avatar3,
+      EmployeeImage: avatar2,
     },
     {
       EmployeeID: 3,

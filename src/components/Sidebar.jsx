@@ -10,7 +10,7 @@ import { IoMdContacts } from "react-icons/io";
 const Sidebar = () => {
   const links = [
     {
-      title: "Dashboard",
+      title: "Form",
       links: [
         {
           name: "patientform",

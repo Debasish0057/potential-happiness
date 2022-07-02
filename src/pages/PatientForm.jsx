@@ -1,7 +1,68 @@
-import React from "react";
+import React, { useState } from "react";
 import { Header } from "../components";
 
 const PatientForm = () => {
+  const [title, setTitle] = useState("MR");
+  const [firstName, setFirstName] = useState("");
+  const [middleName, setMiddleName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [gender, setGenderName] = useState("");
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [age, setAge] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("ODISHA");
+
+  const options = [
+    { id: "MR", name: "Mr." },
+    { id: "MS", name: "Ms." },
+    { id: "MRS", name: "Mrs." },
+  ];
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const patientForm = {
+      title: title,
+      firstName: firstName,
+      middleName: middleName,
+      lastName: lastName,
+      gender: gender,
+      mobileNumber: mobileNumber,
+      age: age,
+      city: city,
+      state: state,
+    };
+
+    alert(
+      "title " +
+        title +
+        " first name " +
+        firstName +
+        " middle name " +
+        middleName +
+        " lastName " +
+        lastName +
+        " gender " +
+        gender +
+        " mobileNumber " +
+        mobileNumber +
+        " age " +
+        age +
+        " city " +
+        city +
+        " state " +
+        state
+    );
+
+    setFirstName("");
+    setMiddleName("");
+    setLastName("");
+    setGenderName("");
+    setMobileNumber("");
+    setAge("");
+    setCity("");
+    setState("");
+  };
   return (
     <div className="m-2 md:m-5 p-4 md:p-5 bg-white rounded-3xl">
       <Header category="Page" title="Patient Submission Form" />
@@ -19,23 +80,29 @@ const PatientForm = () => {
           </div>
         </div>
       </div>
-      <form className="w-full py-12" action="/" method="GET">
+      <form className="w-full py-12" onSubmit={handleSubmit}>
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full md:w-1/6 px-3 mb-6 md:mb-0">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="grid-state"
+              htmlFor="grid-state"
             >
               Title
             </label>
             <div className="relative">
               <select
                 className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-state"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
               >
-                <option value="MR">Mr.</option>
+                {options.map((item) => (
+                  <option key={item.id} value={item.id}>
+                    {item.name}
+                  </option>
+                ))}
+                {/* <option value="MR">Mr.</option>
                 <option value="MS">Ms.</option>
-                <option value="MRS">Mrs.</option>
+                <option value="MRS">Mrs.</option> */}
               </select>
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                 <svg
@@ -52,15 +119,16 @@ const PatientForm = () => {
           <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="grid-first-name"
+              htmlFor="grid-first-name"
             >
               First Name
             </label>
             <input
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              id="grid-first-name"
               type="text"
               placeholder="First Name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
             />
             {/* <p className="text-red-500 text-xs italic">
               Please fill out this field.
@@ -69,82 +137,83 @@ const PatientForm = () => {
           <div className="w-full md:w-1/4 px-3">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="grid-last-name"
+              htmlFor="grid-last-name"
             >
               Middle Name
             </label>
             <input
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              id="grid-middle-name"
               type="text"
               placeholder="Middle Name"
+              value={middleName}
+              onChange={(e) => setMiddleName(e.target.value)}
             />
           </div>
           <div className="w-full md:w-1/4 px-3">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="grid-last-name"
+              htmlFor="grid-last-name"
             >
               Last Name
             </label>
             <input
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              id="grid-last-name"
               type="text"
               placeholder="Last Name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
             />
           </div>
         </div>
         <div className="flex flex-wrap -mx-3 mb-6">
-          <div className="grid grid-cols-9 w-full px-3">
+          <div className="grid grid-cols-4 w-full px-3">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="grid-password"
+              htmlFor="grid-password"
             >
               Gender
             </label>
-            <div class="form-check form-check-inline">
+            <div className="form-check form-check-inline">
               <input
-                class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                className="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                 type="radio"
                 name="flexRadioDefault"
-                id="flexRadioDefault1"
-                value={"male"}
+                value={"MALE"}
+                onChange={(e) => setGenderName(e.target.value)}
               />
               <label
-                class="form-check-label inline-block text-gray-800"
-                for="flexRadioDefault1"
+                className="form-check-label inline-block text-gray-800"
+                htmlFor="flexRadioDefault1"
               >
                 Male
               </label>
             </div>
-            <div class="form-check form-check-inline">
+            <div className="form-check form-check-inline">
               <input
-                class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                className="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                 type="radio"
                 name="flexRadioDefault"
-                id="flexRadioDefault2"
-                checked
-                value={"female"}
+                value={"FEMALE"}
+                onChange={(e) => setGenderName(e.target.value)}
               />
               <label
-                class="form-check-label inline-block text-gray-800"
-                for="flexRadioDefault2"
+                className="form-check-label inline-block text-gray-800"
+                htmlFor="flexRadioDefault2"
               >
                 Female
               </label>
             </div>
-            <div class="form-check form-check-inline">
+            <div className="form-check form-check-inline">
               <input
-                class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                className="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                 type="radio"
                 name="flexRadioDefault"
-                id="flexRadioDefault2"
-                value={"other"}
+                value={"OTHER"}
+                onChange={(e) => setGenderName(e.target.value)}
               />
               <label
-                class="form-check-label inline-block text-gray-800"
-                for="flexRadioDefault2"
+                className="form-check-label inline-block text-gray-800"
+                htmlFor="flexRadioDefault2"
               >
                 Other
               </label>
@@ -164,15 +233,16 @@ const PatientForm = () => {
           <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="grid-first-name"
+              htmlFor="grid-first-name"
             >
               Mobile Number
             </label>
             <input
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              id="grid-first-name"
               type="text"
               placeholder="Mobile Number"
+              value={mobileNumber}
+              onChange={(e) => setMobileNumber(e.target.value)}
             />
             {/* <p className="text-red-500 text-xs italic">
               Please fill out this field.
@@ -181,21 +251,22 @@ const PatientForm = () => {
           <div className="w-full md:w-1/3 px-3">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="grid-last-name"
+              htmlFor="grid-last-name"
             >
-              Middle Name
+              age
             </label>
             <input
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              id="grid-middle-name"
               type="text"
-              placeholder="Middle Name"
+              placeholder="Age"
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
             />
           </div>
           <div className="w-full md:w-1/3 px-3">
-            <label
+            {/* <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="grid-last-name"
+              htmlFor="grid-last-name"
             >
               Last Name
             </label>
@@ -204,35 +275,37 @@ const PatientForm = () => {
               id="grid-last-name"
               type="text"
               placeholder="Last Name"
-            />
+            /> */}
           </div>
         </div>
         <div className="flex flex-wrap -mx-3 mb-2">
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="grid-city"
+              htmlFor="grid-city"
             >
               City
             </label>
             <input
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              id="grid-city"
               type="text"
-              placeholder="BHUBANESWAR"
+              placeholder="City"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
             />
           </div>
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="grid-state"
+              htmlFor="grid-state"
             >
               State
             </label>
             <div className="relative">
               <select
                 className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-state"
+                value={state}
+                onChange={(e) => setState(e.target.value)}
               >
                 <option>ODISHA</option>
                 <option>KARNATAKA</option>
@@ -251,7 +324,7 @@ const PatientForm = () => {
           {/* <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="grid-zip"
+              htmlFor="grid-zip"
             >
               Zip
             </label>
@@ -263,36 +336,36 @@ const PatientForm = () => {
             />
           </div> */}
         </div>
-        <div class="flex justify-center py-5 -mx-3 mb-2 items-center w-full">
+        <div className="flex justify-center py-5 -mx-3 mb-2 items-center w-full">
           <label
-            for="dropzone-file"
-            class="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+            htmlFor="dropzone-file"
+            className="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
           >
-            <div class="flex flex-col justify-center items-center pt-5 pb-6">
+            <div className="flex flex-col justify-center items-center pt-5 pb-6">
               <svg
-                class="mb-3 w-10 h-10 text-gray-400"
+                className="mb-3 w-10 h-10 text-gray-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                 ></path>
               </svg>
-              <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                <span class="font-semibold">Click to upload</span> or drag and
-                drop
+              <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                <span className="font-semibold">Click to upload</span> or drag
+                and drop
               </p>
-              <p class="text-xs text-gray-500 dark:text-gray-400">
+              <p className="text-xs text-gray-500 dark:text-gray-400">
                 {/* SVG, PNG, JPG or GIF (MAX. 800x400px) */}
                 document/image
               </p>
             </div>
-            <input id="dropzone-file" type="file" class="hidden" />
+            <input id="dropzone-file" type="file" className="hidden" />
           </label>
         </div>
         <div className="grid gap-y-5 grid-cols-1">

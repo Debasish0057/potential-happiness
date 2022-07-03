@@ -1,5 +1,10 @@
-import React, { useState } from "react";
-import { Header } from "../components";
+import React, { useEffect, useState } from "react";
+import { Header, Loader, Alert } from "../components";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import { options, states } from "../data/data";
 
 const PatientForm = () => {
   const [title, setTitle] = useState("MR");
@@ -12,11 +17,86 @@ const PatientForm = () => {
   const [city, setCity] = useState("");
   const [state, setState] = useState("ODISHA");
 
-  const options = [
-    { id: "MR", name: "Mr." },
-    { id: "MS", name: "Ms." },
-    { id: "MRS", name: "Mrs." },
-  ];
+  const [isSuccess, setSuccess] = useState(false);
+
+  // `${exerciseDbUrl}/exercises/target/${exerciseDetailData.target}`
+  // useEffect(() => {
+  //   const fetchServerResponse = async () => {
+  //     const sendPatientDataToServer = await fetchData(
+  //       "192.168.0.103:8080/patientform",
+  //       forPostRequest
+  //     );
+  //     console.log(sendPatientDataToServer);
+  //   };
+  //   // JSON.parse(patientForm);
+  //   // return () => {
+  //   //   // this now gets called when the component unmounts
+  //   // };
+  // }, []);
+  // };
+
+  const sendAPIRequest = async (reqData) => {
+    let randomNumber = parseInt(Math.floor(Math.random() * 2) + 1);
+    setTimeout(function () {
+      if (randomNumber === 1 || randomNumber === 0.5) {
+        toast.success("😍 submitted succesfully !", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      } else {
+        toast.error("🤨 issue occured, please try again !", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+    }, 3000);
+
+    // const url = "http://192.168.0.103:8080/patientform";
+    // let respData = "";
+    // let resp = "";
+    // try {
+    //   const res = await fetch(url, {
+    //     method: "POST",
+    //     body: JSON.stringify(reqData),
+    //   });
+    //   resp = await res.json();
+    //   if (resp.statusCode === 200) {
+    //     toast.success("😍 submitted succesfully !", {
+    //       position: "top-right",
+    //       autoClose: 2000,
+    //       hideProgressBar: false,
+    //       closeOnClick: true,
+    //       pauseOnHover: true,
+    //       draggable: true,
+    //       progress: undefined,
+    //     });
+    //   }
+    // } catch (error) {
+    //   toast.warn("🤨 issue occured, please try again !", {
+    //     position: "top-right",
+    //     autoClose: 2000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //   });
+    //   respData = {
+    //     status: "FAILED",
+    //     statusCode: 500,
+    //   };
+    // }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -33,36 +113,18 @@ const PatientForm = () => {
       state: state,
     };
 
-    alert(
-      "title " +
-        title +
-        " first name " +
-        firstName +
-        " middle name " +
-        middleName +
-        " lastName " +
-        lastName +
-        " gender " +
-        gender +
-        " mobileNumber " +
-        mobileNumber +
-        " age " +
-        age +
-        " city " +
-        city +
-        " state " +
-        state
-    );
+    const resp = sendAPIRequest(patientForm);
 
     setFirstName("");
     setMiddleName("");
     setLastName("");
-    setGenderName("");
     setMobileNumber("");
     setAge("");
     setCity("");
-    setState("");
   };
+
+  const notify = () => toast("In Progress ...");
+
   return (
     <div className="m-2 md:m-5 p-4 md:p-5 bg-white rounded-3xl">
       <Header category="Page" title="Patient Submission Form" />
@@ -127,6 +189,7 @@ const PatientForm = () => {
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               type="text"
               placeholder="First Name"
+              required
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
             />
@@ -160,6 +223,7 @@ const PatientForm = () => {
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               type="text"
               placeholder="Last Name"
+              required
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             />
@@ -241,6 +305,7 @@ const PatientForm = () => {
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               type="text"
               placeholder="Mobile Number"
+              required
               value={mobileNumber}
               onChange={(e) => setMobileNumber(e.target.value)}
             />
@@ -259,6 +324,7 @@ const PatientForm = () => {
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               type="text"
               placeholder="Age"
+              required
               value={age}
               onChange={(e) => setAge(e.target.value)}
             />
@@ -290,6 +356,7 @@ const PatientForm = () => {
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               type="text"
               placeholder="City"
+              required
               value={city}
               onChange={(e) => setCity(e.target.value)}
             />
@@ -304,11 +371,13 @@ const PatientForm = () => {
             <div className="relative">
               <select
                 className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                required
                 value={state}
                 onChange={(e) => setState(e.target.value)}
               >
-                <option>ODISHA</option>
-                <option>KARNATAKA</option>
+                {states.map((state) => (
+                  <option key={state.name}>{state.name}</option>
+                ))}
               </select>
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                 <svg
@@ -370,6 +439,7 @@ const PatientForm = () => {
         </div>
         <div className="grid gap-y-5 grid-cols-1">
           <button
+            onClick={notify}
             type="submit"
             className="relative w-full 
                 py-2  border border-transparent text-sm font-medium
@@ -378,6 +448,17 @@ const PatientForm = () => {
           >
             Submit
           </button>
+          <ToastContainer
+            position="top-right"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
         </div>
       </form>
     </div>

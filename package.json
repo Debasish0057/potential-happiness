@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.6.1",
+    "@mui/material": "^5.6.1",
     "@syncfusion/ej2": "^19.4.48",
     "@syncfusion/ej2-react-calendars": "^19.4.48",
     "@syncfusion/ej2-react-charts": "^19.4.50",
@@ -15,9 +19,12 @@
     "@syncfusion/ej2-react-schedule": "^19.4.50",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-horizontal-scrolling-menu": "^2.7.1",
     "react-icons": "^4.3.1",
+    "react-loader-spinner": "^6.0.0-0",
     "react-router-dom": "^6.2.1",
-    "react-scripts": "5.0.0"
+    "react-scripts": "5.0.0",
+    "react-toastify": "^9.0.5"
   },
   "scripts": {
     "start": "react-scripts start",

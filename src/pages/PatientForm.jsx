@@ -36,41 +36,9 @@ const PatientForm = () => {
   // };
 
   const sendAPIRequest = async (reqData) => {
-    let randomNumber = parseInt(Math.floor(Math.random() * 2) + 1);
-    setTimeout(function () {
-      if (randomNumber === 1 || randomNumber === 0.5) {
-        toast.success("😍 submitted succesfully !", {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      } else {
-        toast.error("🤨 issue occured, please try again !", {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      }
-    }, 3000);
-
-    // const url = "http://192.168.0.103:8080/patientform";
-    // let respData = "";
-    // let resp = "";
-    // try {
-    //   const res = await fetch(url, {
-    //     method: "POST",
-    //     body: JSON.stringify(reqData),
-    //   });
-    //   resp = await res.json();
-    //   if (resp.statusCode === 200) {
+    // let randomNumber = parseInt(Math.floor(Math.random() * 2) + 1);
+    // setTimeout(function () {
+    //   if (randomNumber === 1 || randomNumber === 0.5) {
     //     toast.success("😍 submitted succesfully !", {
     //       position: "top-right",
     //       autoClose: 2000,
@@ -80,22 +48,68 @@ const PatientForm = () => {
     //       draggable: true,
     //       progress: undefined,
     //     });
+    //   } else {
+    //     toast.error("🤨 issue occured, please try again !", {
+    //       position: "top-right",
+    //       autoClose: 2000,
+    //       hideProgressBar: false,
+    //       closeOnClick: true,
+    //       pauseOnHover: true,
+    //       draggable: true,
+    //       progress: undefined,
+    //     });
     //   }
-    // } catch (error) {
-    //   toast.warn("🤨 issue occured, please try again !", {
-    //     position: "top-right",
-    //     autoClose: 2000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //   });
-    //   respData = {
-    //     status: "FAILED",
-    //     statusCode: 500,
-    //   };
-    // }
+    // }, 3000);
+
+    const url = "https://potential-happiness.herokuapp.com/emr/patientform";
+    let respData = "";
+    let resp = "";
+    try {
+      const res = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(reqData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      resp = await res.json();
+      console.log(resp)
+      if (resp.statusCode === 200) {
+        toast.success("😍 submitted succesfully ! Form ID "+resp.id , {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      } else if (resp.statusCode === 500) {
+        toast.error("🤨 " +resp.errorMsg +" !!!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+    } catch (error) {
+      toast.warn("🤨 issue occured, please try again !", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      respData = {
+        status: "FAILED",
+        statusCode: 500,
+      };
+    }
   };
 
   const handleSubmit = (event) => {
@@ -115,12 +129,12 @@ const PatientForm = () => {
 
     const resp = sendAPIRequest(patientForm);
 
-    setFirstName("");
-    setMiddleName("");
-    setLastName("");
-    setMobileNumber("");
-    setAge("");
-    setCity("");
+    // setFirstName("");
+    // setMiddleName("");
+    // setLastName("");
+    // setMobileNumber("");
+    // setAge("");
+    // setCity("");
   };
 
   const notify = () => toast("In Progress ...");
@@ -450,7 +464,7 @@ const PatientForm = () => {
           </button>
           <ToastContainer
             position="top-right"
-            autoClose={2000}
+            autoClose={700}
             hideProgressBar={false}
             newestOnTop={false}
             closeOnClick

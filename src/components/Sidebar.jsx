@@ -5,7 +5,7 @@ import { MdOutlineCancel } from "react-icons/md";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 import { useStateContext } from "../contexts/ContextProvider";
 import { FiShoppingBag } from "react-icons/fi";
-import { IoMdContacts } from "react-icons/io";
+import { IoIosPerson,IoMdContacts } from "react-icons/io";
 
 const Sidebar = () => {
   const links = [
@@ -21,6 +21,10 @@ const Sidebar = () => {
     {
       title: "Pages",
       links: [
+        {
+          name: "patient",
+          icon: <IoIosPerson />,
+        },
         {
           name: "employees",
           icon: <IoMdContacts />,

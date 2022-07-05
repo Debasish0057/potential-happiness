@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
-import { Employees } from './pages';
+import { Employees, Patient } from './pages';
 
 
 import { Navbar, Footer, Sidebar } from './components';
@@ -58,6 +58,7 @@ function App() {
                 <Route path="/patientform" element={<PatientForm />} />
 
                 {/* Pages */}
+                <Route path="/patient" element={<Patient />} />
                 <Route path="/employees" element={<Employees />} />
               </Routes>
             </div>

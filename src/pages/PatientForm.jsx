@@ -79,7 +79,7 @@ const PatientForm = () => {
       console.log(resp)
       if (resp.statusCode === 200) {
         toast.success("😍 submitted succesfully ! Form ID "+resp.id , {
-          position: "top-right",
+          position: "bottom-right",
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -89,7 +89,7 @@ const PatientForm = () => {
         });
       } else if (resp.statusCode === 500) {
         toast.error("🤨 " +resp.errorMsg +" !!!", {
-          position: "top-right",
+          position: "bottom-right",
           autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -100,7 +100,7 @@ const PatientForm = () => {
       }
     } catch (error) {
       toast.warn("🤨 issue occured, please try again !", {
-        position: "top-right",
+        position: "bottom-right",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -466,7 +466,7 @@ const PatientForm = () => {
             Submit
           </button>
           <ToastContainer
-            position="top-right"
+            position="bottom-right"
             autoClose={700}
             hideProgressBar={false}
             newestOnTop={false}

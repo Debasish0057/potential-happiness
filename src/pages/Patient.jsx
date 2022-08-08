@@ -67,7 +67,7 @@ const Patient = () => {
       respData = resp;
     } catch (error) {
       toast.warn("🤨 issue occured, please try again !", {
-        position: "top-right",
+        position: "bottom-right",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -114,7 +114,7 @@ const Patient = () => {
         respData = resp;
 
         toast.success("😍 fetched succesfully !!", {
-          position: "top-right",
+          position: "bottom-right",
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -129,7 +129,7 @@ const Patient = () => {
         setMedicine([])
 
         toast.warn(`🤨 No data found for with patient mobile number ${reqData} !!!`, {
-          position: "top-right",
+          position: "bottom-right",
           autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -141,7 +141,7 @@ const Patient = () => {
 
     } catch (error) {
       toast.warn("🤨 issue occured, please try again !", {
-        position: "top-right",
+        position: "bottom-right",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -390,7 +390,7 @@ const Patient = () => {
           </GridComponent>
         </div>
         <ToastContainer
-          position="top-right"
+          position="bottom-right"
           autoClose={700}
           hideProgressBar={false}
           newestOnTop={false}

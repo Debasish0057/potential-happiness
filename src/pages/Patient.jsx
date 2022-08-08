@@ -26,33 +26,8 @@ const Patient = () => {
   const rooturl = process.env.REACT_APP_ROOT_URL_UAT;
 
   const getAllPatientResp = async (reqData) => {
-    // let randomNumber = parseInt(Math.floor(Math.random() * 2) + 1);
-    // setTimeout(function () {
-    //   if (randomNumber === 1 || randomNumber === 0.5) {
-    //     toast.success("😍 submitted succesfully !", {
-    //       position: "top-right",
-    //       autoClose: 2000,
-    //       hideProgressBar: false,
-    //       closeOnClick: true,
-    //       pauseOnHover: true,
-    //       draggable: true,
-    //       progress: undefined,
-    //     });
-    //   } else {
-    //     toast.error("🤨 issue occured, please try again !", {
-    //       position: "top-right",
-    //       autoClose: 2000,
-    //       hideProgressBar: false,
-    //       closeOnClick: true,
-    //       pauseOnHover: true,
-    //       draggable: true,
-    //       progress: undefined,
-    //     });
-    //   }
-    // }, 3000);
 
     const url = `${rooturl}emr/getallpatient`;
-    // const url = "https://potential-happiness.herokuapp.com/emr/getallpatient";
     let respData = "";
     let resp = [];
     try {
@@ -67,7 +42,7 @@ const Patient = () => {
       respData = resp;
     } catch (error) {
       toast.warn("🤨 issue occured, please try again !", {
-        position: "bottom-right",
+        position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -94,10 +69,7 @@ const Patient = () => {
   }, []);
 
   const getPateintChartResp = async (reqData) => {
-
     const url = `${rooturl}emr/getpatientchart/${reqData}`;
-    // const url = "https://potential-happiness.herokuapp.com/emr/getallpatient";
-
     let respData = "";
     let resp = [];
     try {
@@ -114,7 +86,7 @@ const Patient = () => {
         respData = resp;
 
         toast.success("😍 fetched succesfully !!", {
-          position: "bottom-right",
+          position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -129,7 +101,7 @@ const Patient = () => {
         setMedicine([])
 
         toast.warn(`🤨 No data found for with patient mobile number ${reqData} !!!`, {
-          position: "bottom-right",
+          position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -141,7 +113,7 @@ const Patient = () => {
 
     } catch (error) {
       toast.warn("🤨 issue occured, please try again !", {
-        position: "bottom-right",
+        position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -390,7 +362,7 @@ const Patient = () => {
           </GridComponent>
         </div>
         <ToastContainer
-          position="bottom-right"
+          position="top-right"
           autoClose={700}
           hideProgressBar={false}
           newestOnTop={false}

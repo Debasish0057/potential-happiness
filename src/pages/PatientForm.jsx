@@ -21,49 +21,7 @@ const PatientForm = () => {
 
   const rooturl = process.env.REACT_APP_ROOT_URL_UAT;
 
-  // `${exerciseDbUrl}/exercises/target/${exerciseDetailData.target}`
-  // useEffect(() => {
-  //   const fetchServerResponse = async () => {
-  //     const sendPatientDataToServer = await fetchData(
-  //       "192.168.0.103:8080/patientform",
-  //       forPostRequest
-  //     );
-  //     console.log(sendPatientDataToServer);
-  //   };
-  //   // JSON.parse(patientForm);
-  //   // return () => {
-  //   //   // this now gets called when the component unmounts
-  //   // };
-  // }, []);
-  // };
-
   const sendAPIRequest = async (reqData) => {
-    // let randomNumber = parseInt(Math.floor(Math.random() * 2) + 1);
-    // setTimeout(function () {
-    //   if (randomNumber === 1 || randomNumber === 0.5) {
-    //     toast.success("😍 submitted succesfully !", {
-    //       position: "top-right",
-    //       autoClose: 2000,
-    //       hideProgressBar: false,
-    //       closeOnClick: true,
-    //       pauseOnHover: true,
-    //       draggable: true,
-    //       progress: undefined,
-    //     });
-    //   } else {
-    //     toast.error("🤨 issue occured, please try again !", {
-    //       position: "top-right",
-    //       autoClose: 2000,
-    //       hideProgressBar: false,
-    //       closeOnClick: true,
-    //       pauseOnHover: true,
-    //       draggable: true,
-    //       progress: undefined,
-    //     });
-    //   }
-    // }, 3000);
-
-    //const url = "https://potential-happiness.herokuapp.com/emr/patientform";
     const url = `${rooturl}emr/patientform`;
     let respData = "";
     let resp = "";
@@ -79,7 +37,7 @@ const PatientForm = () => {
       console.log(resp)
       if (resp.statusCode === 200) {
         toast.success("😍 submitted succesfully ! Form ID "+resp.id , {
-          position: "bottom-right",
+          position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -89,7 +47,7 @@ const PatientForm = () => {
         });
       } else if (resp.statusCode === 500) {
         toast.error("🤨 " +resp.errorMsg +" !!!", {
-          position: "bottom-right",
+          position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -100,7 +58,7 @@ const PatientForm = () => {
       }
     } catch (error) {
       toast.warn("🤨 issue occured, please try again !", {
-        position: "bottom-right",
+        position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -129,15 +87,7 @@ const PatientForm = () => {
       city: city,
       state: state,
     };
-
     const resp = sendAPIRequest(patientForm);
-
-    // setFirstName("");
-    // setMiddleName("");
-    // setLastName("");
-    // setMobileNumber("");
-    // setAge("");
-    // setCity("");
   };
 
   const notify = () => toast("In Progress ...");
@@ -466,7 +416,7 @@ const PatientForm = () => {
             Submit
           </button>
           <ToastContainer
-            position="bottom-right"
+            position="top-right"
             autoClose={700}
             hideProgressBar={false}
             newestOnTop={false}

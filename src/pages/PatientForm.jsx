@@ -19,6 +19,8 @@ const PatientForm = () => {
 
   const [isSuccess, setSuccess] = useState(false);
 
+  const rooturl = process.env.REACT_APP_ROOT_URL_UAT;
+
   // `${exerciseDbUrl}/exercises/target/${exerciseDetailData.target}`
   // useEffect(() => {
   //   const fetchServerResponse = async () => {
@@ -61,7 +63,8 @@ const PatientForm = () => {
     //   }
     // }, 3000);
 
-    const url = "https://potential-happiness.herokuapp.com/emr/patientform";
+    //const url = "https://potential-happiness.herokuapp.com/emr/patientform";
+    const url = `${rooturl}emr/patientform`;
     let respData = "";
     let resp = "";
     try {

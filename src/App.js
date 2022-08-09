@@ -12,9 +12,10 @@ import './App.css';
 import { useStateContext } from './contexts/ContextProvider';
 import Monitor from './pages/Monitor';
 import PatientForm from './pages/PatientForm';
+import Logout from './pages/Logout';
 
 function App() {
-  const { activeMenu, currentColor, setThemeSettings } = useStateContext();
+  const { activeMenu } = useStateContext();
 
   return (
     <BrowserRouter>
@@ -60,6 +61,8 @@ function App() {
                 {/* Pages */}
                 <Route path="/patient" element={<Patient />} />
                 <Route path="/employees" element={<Employees />} />
+                
+                <Route path="/logout" element={<Logout />} />
               </Routes>
             </div>
           <Footer />

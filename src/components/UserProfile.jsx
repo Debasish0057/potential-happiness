@@ -1,6 +1,6 @@
 import React from 'react';
 import { MdOutlineCancel } from 'react-icons/md';
-
+import { Link, NavLink } from "react-router-dom";
 import { Button } from '.';
 import { userProfileData } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
@@ -53,13 +53,19 @@ const UserProfile = () => {
                 ))}
             </div>
             <div className="mt-5">
-                <Button
-                    color="white"
-                    bgColor={currentColor}
-                    text="Logout"
-                    borderRadius="10px"
-                    width="full"
-                />
+
+                <Link
+                    to="/logout"
+                >
+                    <Button
+                        color="white"
+                        bgColor={currentColor}
+                        text="Logout"
+                        borderRadius="10px"
+                        width="full"
+                    />
+                </Link>
+
             </div>
         </div>
 

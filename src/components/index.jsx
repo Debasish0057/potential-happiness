@@ -7,3 +7,4 @@ export { default as Header } from './Header';
 export { default as NameSubmit } from './NameSubmit';
 export { default as Loader } from './Loader';
 export { default as Alert } from './Alert';
+export { default as UserProfile } from './UserProfile';

@@ -5,6 +5,7 @@ import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 
 import avatar from "../data/avatar.jpg";
 import userData from "../data/data.json";
+import { UserProfile } from '.';
 import { useStateContext } from "../contexts/ContextProvider";
 
 const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
@@ -33,6 +34,7 @@ const Navbar = () => {
     isClicked,
     setScreenSize,
     screenSize,
+    initialState, setIsClicked
   } = useStateContext();
 
   useEffect(() => {
@@ -58,7 +60,8 @@ const Navbar = () => {
         title="Menu"
         customFunc={handleActiveMenu}
         color={currentColor}
-        icon={<AiOutlineMenu />}
+        icon={<AiOutlineMenu />
+        }
       />
       <div className="flex">
         <TooltipComponent content="Profile" position="BottomCenter">
@@ -71,16 +74,17 @@ const Navbar = () => {
               src={avatar}
               alt="user-profile"
             />
-            <p>
+            <p >
               <span className="text-gray-400 text-14">Hi,</span>{" "}
               <span className="text-gray-400 font-bold ml-1 text-14">
                 {/* { localStorage.getItem('userName') } */}
-                { userData[0].fName }
+                {userData[0].fName}
               </span>
             </p>
             <MdKeyboardArrowDown className="text-gray-400 text-14" />
           </div>
         </TooltipComponent>
+        {isClicked.userProfile && (<UserProfile />)}
       </div>
     </div>
   );

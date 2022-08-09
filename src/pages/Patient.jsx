@@ -278,7 +278,8 @@ const Patient = () => {
 
     getPateintChartResp(args.data.mobileNumber)
       .then((res) => {
-        if (res !== undefined) {
+
+        if (res != "" || res.length != 0) {
           let temp1 = []
           res.forEach((res, index) => {
             if (res.patient_illness_det !== null) {
@@ -330,6 +331,7 @@ const Patient = () => {
         </ColumnsDirective>
         <Inject services={[Page, Search, Toolbar, Selection]} />
       </GridComponent>
+
 
       <div className="m-2 md:m-5 p-4 md:p-5 bg-white rounded-3xl"> Patient Name :  <b>{fullName}</b>
         <div className="m-2 md:m-5 p-4 md:p-5 bg-white rounded-3xl"> Cause of Visit :

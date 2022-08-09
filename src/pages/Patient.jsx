@@ -322,8 +322,8 @@ const Patient = () => {
         selectedRowIndex={4}
         rowSelected={rowselect.bind(this)}
       //allowFiltering
-
       >
+
         <ColumnsDirective>
           {patientGrid.map((item, index) => (
             <ColumnDirective key={index} {...item} />
@@ -332,19 +332,25 @@ const Patient = () => {
         <Inject services={[Page, Search, Toolbar, Selection]} />
       </GridComponent>
 
+      <div className="m-2 md:m-5 p-4 md:p-5 bg-white rounded-3xl"> {patientVisit == "" && (
+        <b> No Record Exist With </b>
+      )} <b> Patient Name : </b> <b className="text-3xl text-gray-400">&nbsp;&nbsp;{fullName} </b>
 
-      <div className="m-2 md:m-5 p-4 md:p-5 bg-white rounded-3xl"> Patient Name :  <b>{fullName}</b>
-        <div className="m-2 md:m-5 p-4 md:p-5 bg-white rounded-3xl"> Cause of Visit :
-          <GridComponent dataSource={patientVisit}>
-            <ColumnsDirective>
-              {patientCommunicationGrid.map((item, index) => (
-                <ColumnDirective key={index} {...item} />
-              ))}
-            </ColumnsDirective>
-          </GridComponent>
-        </div>
+        {patientVisit != "" && (
+          <div className="m-2 md:m-5 p-4 md:p-5 bg-white rounded-3xl"> Cause of Visit :
+            <GridComponent dataSource={patientVisit}>
+              <ColumnsDirective>
+                {patientCommunicationGrid.map((item, index) => (
+                  <ColumnDirective key={index} {...item} />
+                ))}
+              </ColumnsDirective>
+            </GridComponent>
+          </div>
+        )}
 
-        <div className="m-2 md:m-5 p-4 md:p-5 bg-white rounded-3xl"> Symtoms :
+
+
+        {symtoms != "" && (<div className="m-2 md:m-5 p-4 md:p-5 bg-white rounded-3xl"> Symtoms :
           <GridComponent dataSource={symtoms}>
             <ColumnsDirective>
               {doctorSymtomsGrid.map((item, index) => (
@@ -352,9 +358,9 @@ const Patient = () => {
               ))}
             </ColumnsDirective>
           </GridComponent>
-        </div>
+        </div>)}
 
-        <div className="m-2 md:m-5 p-4 md:p-5 bg-white rounded-3xl"> Medication :
+        {medicine != "" && (<div className="m-2 md:m-5 p-4 md:p-5 bg-white rounded-3xl"> Medication :
           <GridComponent dataSource={medicine}>
             <ColumnsDirective>
               {medicineGrid.map((item, index) => (
@@ -363,18 +369,20 @@ const Patient = () => {
             </ColumnsDirective>
           </GridComponent>
         </div>
-        <ToastContainer
-          position="top-right"
-          autoClose={700}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
+        )}
       </div>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={700}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };

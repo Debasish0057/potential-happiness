@@ -25,108 +25,6 @@ const Patient = () => {
 
   const rooturl = process.env.REACT_APP_ROOT_URL_UAT;
 
-  const getAllPatientResp = async (reqData) => {
-
-    const url = `${rooturl}emr/getallpatient`;
-    let respData = "";
-    let resp = [];
-    try {
-      const res = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify(reqData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      resp = await res.json();
-      respData = resp;
-    } catch (error) {
-      toast.warn("🤨 issue occured, please try again !", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      respData = {
-        status: "FAILED",
-        statusCode: 500,
-      };
-    }
-    return respData;
-  };
-
-  useEffect(() => {
-    getAllPatientResp()
-      .then((res) => {
-        setPatientData(res);
-      })
-      .catch((e) => {
-        console.log(e.message);
-      });
-  }, []);
-
-  const getPateintChartResp = async (reqData) => {
-    const url = `${rooturl}emr/getpatientchart/${reqData}`;
-    let respData = "";
-    let resp = [];
-    try {
-      const res = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify(reqData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      console.log(res)
-      if (res.status === 200) {
-        resp = await res.json();
-        respData = resp;
-
-        toast.success("😍 fetched succesfully !!", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-
-      } else {
-        setPatientVisit([])
-        setSymtoms([])
-        setMedicine([])
-
-        toast.warn(`🤨 No data found for with patient mobile number ${reqData} !!!`, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      }
-
-    } catch (error) {
-      toast.warn("🤨 issue occured, please try again !", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
-    return respData;
-  };
-
-
-
   const gridEmployeeProfile = (props) => (
     <div className="flex items-center gap-2">
       {/* <img
@@ -272,42 +170,118 @@ const Patient = () => {
     }
   ];
 
+  useEffect(() => {
+    const getAllPatientResp = async (reqData) => {
+      const url = `${rooturl}emr/getallpatient`;
+
+      await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(reqData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then(response => response.json())
+        .then(response => {
+          setPatientData(response);
+        })
+        .catch(err => {
+          console.error(err)
+          toast.warn("🤨 issue occured, please try again ! " + err, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        });
+    };
+    getAllPatientResp();
+  }, []);
+
   const rowselect = (args) => {
     const getPatientName = args.data.firstName + " " + args.data.middleName + " " + args.data.lastName;
     setFullName(getPatientName);
 
-    getPateintChartResp(args.data.mobileNumber)
-      .then((res) => {
+    const getPateintChartResp = async (reqData) => {
+      const url = `${rooturl}emr/getpatientchart/${reqData}`;
+      let resp = [];
+      await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(reqData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((res) => {
+        if (res.status === 200) {
+          resp = res.json().then((res) => {
+            if (res != "" || res.length != 0) {
+              let temp1 = []
+              res.forEach((res, index) => {
+                if (res.patient_illness_det !== null) {
+                  temp1.push(res)
+                }
+              })
+              setPatientVisit(temp1);
 
-        if (res != "" || res.length != 0) {
-          let temp1 = []
-          res.forEach((res, index) => {
-            if (res.patient_illness_det !== null) {
-              temp1.push(res)
+              let temp2 = []
+              res.forEach((res, index) => {
+                if (res.patient_Symptoms !== null) {
+                  temp2.push(res)
+                }
+              })
+              setSymtoms(temp2);
+
+              let temp3 = []
+              res.forEach((res, index) => {
+                if (res.patient_cure_pres !== null) {
+                  temp3.push(res)
+                }
+              })
+              setMedicine(temp3);
+            
             }
           })
-          setPatientVisit(temp1);
 
-          let temp2 = []
-          res.forEach((res, index) => {
-            if (res.patient_Symptoms !== null) {
-              temp2.push(res)
-            }
-          })
-          setSymtoms(temp2);
+          toast.success("😍 fetched succesfully !!", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
 
-          let temp3 = []
-          res.forEach((res, index) => {
-            if (res.patient_cure_pres !== null) {
-              temp3.push(res)
-            }
-          })
-          setMedicine(temp3);
+        } else {
+          setPatientVisit([])
+          setSymtoms([])
+          setMedicine([])
+
+          toast.warn(`🤨 No data found for with patient mobile number ${reqData} !!!`, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         }
-      })
-      .catch((e) => {
-        console.log(e.message);
+      }).catch(error => {
+        toast.warn("🤨 issue occured, please try again ! " +error, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       });
+    };
+    getPateintChartResp(args.data.mobileNumber);
   }
 
   return (

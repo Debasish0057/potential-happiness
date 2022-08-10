@@ -34,6 +34,7 @@ export const ContextProvider = ({ children }) => {
     localStorage.setItem('userName', values);
   };
 
+  //const rootUrl = process.env.REACT_APP_ROOT_URL_UAT;
   const handleClick = (clicked) => setIsClicked({ ...initialState, [clicked]: true });
 
   return (
